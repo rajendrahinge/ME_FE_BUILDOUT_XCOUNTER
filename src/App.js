@@ -1,82 +1,58 @@
-// Filename - App.js
+import React, { useState } from 'react';
+import './App.css';
 
-import React, { useState } from "react";
+function App() {
+  const [input, setInput] = useState('');
+  const [val, setVal] = useState('');
 
-// Importing app.css is css file to add styling
-import "./App.css";
+  const handleClick = (value) => {
+    setInput(input + value);
+  };
 
-const App = () => {
-	// Counter is a state initialized to 0
-	const [counter, setCounter] = useState(0);
+  const handleClear = () => {
+    setInput('');
+	setVal('');
+  };
 
-	// Function is called everytime increment button is clicked
-	const handleClick1 = () => {
-		// Counter state is incremented
-		setCounter(counter + 1);
-	};
+  const handleEqual = () => {
+    try {
+		if(input === '') {
+			setVal('Error');
+		} else {
+			setVal(eval(input));
+		}		
+    } catch (error) {
+		setVal('Error');
+    }
+  };
 
-	// Function is called everytime decrement button is clicked
-	const handleClick2 = () => {
-		// Counter state is decremented
-		setCounter(counter - 1);
-	};
+  return (
+    <div className="calculator">
+      <input type="text" value={input} readOnly className="input-display" />
+	  <div className='output_val'>{val}</div>
+      <div className="keypad">
+        <button onClick={() => handleClick('1')}>1</button>
+        <button onClick={() => handleClick('2')}>2</button>
+        <button onClick={() => handleClick('3')}>3</button>
+        <button onClick={() => handleClick('+')}>+</button>
 
-	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				fontSize: "300%",
-				position: "absolute",
-				width: "100%",
-				height: "100%",
-				top: "-15%",
-			}}
-		>
-			<h1>Counter App</h1>
-			<div
-				style={{
-					fontSize: "120%",
-					position: "relative",
-					top: "10vh",
-				}}
-			>
-				Count: {counter}
-			</div>
-			<div className="buttons">
-				<button
-					style={{
-						fontSize: "60%",
-						position: "relative",
-						top: "20vh",
-						marginRight: "5px",
-						backgroundColor: "green",
-						borderRadius: "8%",
-						color: "white",
-					}}
-					onClick={handleClick1}
-				>
-					Increment
-				</button>
-				<button
-					style={{
-						fontSize: "60%",
-						position: "relative",
-						top: "20vh",
-						marginLeft: "5px",
-						backgroundColor: "red",
-						borderRadius: "8%",
-						color: "white",
-					}}
-					onClick={handleClick2}
-				>
-					Decrement
-				</button>
-			</div>
-		</div>
-	);
-};
+        <button onClick={() => handleClick('4')}>4</button>
+        <button onClick={() => handleClick('5')}>5</button>
+        <button onClick={() => handleClick('6')}>6</button>
+        <button onClick={() => handleClick('-')}>-</button>
+
+        <button onClick={() => handleClick('7')}>7</button>
+        <button onClick={() => handleClick('8')}>8</button>
+        <button onClick={() => handleClick('9')}>9</button>
+        <button onClick={() => handleClick('*')}>*</button>
+
+        <button onClick={() => handleClick('0')}>0</button>
+        <button onClick={handleClear}>C</button>
+        <button onClick={handleEqual}>=</button>
+        <button onClick={() => handleClick('/')}>/</button>
+      </div>
+    </div>
+  );
+}
 
 export default App;
